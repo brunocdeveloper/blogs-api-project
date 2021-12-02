@@ -1,5 +1,5 @@
 const Router = require('express').Router();
-const { createUser, getUsers } = require('../controllers/userControllers');
+const { createUser, getUsers, getUserById } = require('../controllers/userControllers');
 const { validateJWT } = require('../middlewares/jwtValidation');
 const userMiddleware = require('../middlewares/userMiddlewares');
 
@@ -10,5 +10,7 @@ Router.post('/',
  createUser);
 
 Router.get('/', validateJWT, getUsers);
+
+Router.get('/:id', validateJWT, getUserById);
 
 module.exports = Router;

@@ -1,6 +1,6 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const { registerUser, getAllUsers } = require('../services/userServices');
+const { registerUser, getAllUsers, listUserById } = require('../services/userServices');
 
 const SECRET = process.env.JWT_SECRET;
 const jwtConfig = {
@@ -21,4 +21,11 @@ const getUsers = async (req, res) => {
   return res.status(200).json(users);
 };
 
-module.exports = { createUser, getUsers };
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  const user = await listUserById(id);
+  if (!user || user === null) return res.status(404).json({ message: 'User does not exist' });
+  return res.status(200).json(user);
+};
+
+module.exports = { createUser, getUsers, getUserById };

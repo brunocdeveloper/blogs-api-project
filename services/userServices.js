@@ -10,4 +10,15 @@ const getAllUsers = async () => {
   return user;
 };
 
-module.exports = { registerUser, getAllUsers };
+const listUserById = async (id) => {
+  try {
+    const user = await User.findOne({ where: { id } });
+    const { dataValues } = user;
+    delete dataValues.password;
+    return dataValues;
+  } catch (err) {
+    return null;
+  }
+};
+
+module.exports = { registerUser, getAllUsers, listUserById };
