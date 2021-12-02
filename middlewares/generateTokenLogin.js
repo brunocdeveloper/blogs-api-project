@@ -11,8 +11,8 @@ const generateToken = async (req, res) => {
     const { user } = req;
     const token = jwt.sign(user.dataValues, SECRET, jwtConfig);
     return res.status(200).json({ token });
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log(error);
   }
   return res.status(200).json({ message: 'Erro na função generateToken' });
 };

@@ -5,4 +5,9 @@ const registerUser = async ({ displayName, email, password, image }) => {
   return user;
 };
 
-module.exports = { registerUser };
+const getAllUsers = async () => {
+  const user = await User.findAll();
+  return user;
+};
+
+module.exports = { registerUser, getAllUsers };
