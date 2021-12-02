@@ -10,6 +10,7 @@ const displayNameVerify = (req, res, next) => {
   next();
 };
 
+// a função validateEmail é um regex consultado no stackoverflow
 function validateEmail(email) {
   const validation = /\S+@\S+\.\S+/;
   return validation.test(email);
@@ -20,7 +21,6 @@ const emailVerify = async (req, res, next) => {
   const isValid = validateEmail(email);
   try {
     const user = await User.findOne({ where: { email } });
-    console.log(user);
     if (user) {
       return res.status(409).json({ message: 'User already registered' });
     }
@@ -49,7 +49,7 @@ const passwordVerify = (req, res, next) => {
   if (password.length !== 6 || password === '') {
     return res.status(400).json({ message: '"password" length must be 6 characters long' });
   }
-  
+
   next();
 };
 
