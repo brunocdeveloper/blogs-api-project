@@ -3,6 +3,7 @@ const express = require('express');
 const userRouter = require('./router/userRouter');
 const loginRouter = require('./router/loginRouter');
 const categoriesRouter = require('./router/categoriesRouter');
+const blogPostRouter = require('./router/blogPostRouter');
 
 const app = express();
 app.use(bodyParser.json());
@@ -18,3 +19,5 @@ app.use('/user', userRouter);
 app.use('/login', loginRouter);
 
 app.use('/categories', categoriesRouter);
+
+app.use('/post', blogPostRouter);
