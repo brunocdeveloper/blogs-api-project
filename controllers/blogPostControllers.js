@@ -1,4 +1,4 @@
-const { PostsCategories } = require('../models');
+const { PostsCategories, BlogPosts, User, Categories } = require('../models');
 const { registerBlogposts } = require('../services/blogPosts');
 
 const createBlogPost = async (req, res) => {
@@ -17,4 +17,17 @@ const createBlogPost = async (req, res) => {
   });
 };
 
-module.exports = { createBlogPost };
+const getAllPosts = async (req, res) => {
+  const allBlogs = await BlogPosts.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Categories, as: 'categories' },
+    ],
+  });
+  
+  if (!allBlogs) return res.status(401).json({ message: 'Não encontramos as postagens' });
+
+  return res.status(200).json(allBlogs);
+};
+
+module.exports = { createBlogPost, getAllPosts };

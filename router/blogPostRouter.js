@@ -1,5 +1,5 @@
 const Router = require('express').Router();
-const { createBlogPost } = require('../controllers/blogPostControllers');
+const { createBlogPost, getAllPosts } = require('../controllers/blogPostControllers');
 const blogPostMiddleware = require('../middlewares/blogPostMidlewares');
 const { validateJWT } = require('../middlewares/jwtValidation');
 
@@ -9,5 +9,7 @@ Router.post('/',
   blogPostMiddleware.contentVerify,
   blogPostMiddleware.categoryIdsVefiry,
   createBlogPost);
+
+Router.get('/', validateJWT, getAllPosts);
 
 module.exports = Router;
